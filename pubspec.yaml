@@ -1,0 +1,51 @@
+name: bln_website
+description: "A new Flutter project."
+publish_to: 'none' 
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  get: ^4.6.6
+  video_player: ^2.8.6
+  google_fonts: ^6.2.1
+  file_picker: ^8.0.3
+  firebase_core: ^3.0.0
+  cloud_firestore: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
+  cached_network_image: ^3.3.1
+  intl: ^0.17.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/videos/
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: "AppIcon"
+  image_path: "assets/images/blnlogo.jpg"
+  min_sdk_android: 21
+  remove_alpha_ios: true
+  web:
+    generate: true
+    image_path: "assets/images/blnlogo.jpg"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/images/blnlogo.jpg"
+    icon_size: 48
+  macos:
+    generate: true
+    image_path: "assets/images/blnlogo.jpg"
