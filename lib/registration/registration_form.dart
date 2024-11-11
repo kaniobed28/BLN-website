@@ -1,4 +1,5 @@
 import 'package:bln_website/firebase_options.dart';
+import 'package:bln_website/registration/join_whatsapp.dart';
 import 'package:bln_website/registration/registration_form_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,8 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-  
+  RxString ? areYouLeader = "No".obs;
+
   // Define controllers for each text field
   final TextEditingController surnameController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
@@ -31,11 +33,13 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController relationshipToGuardianController =
       TextEditingController();
   final TextEditingController heardAboutSOMController = TextEditingController();
+  final TextEditingController fellowshipNameController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
   // Variable to hold the selected gender value
   String? selectedGender;
+  // String? areYouLeaderOption;
 
   @override
   void dispose() {
@@ -50,6 +54,7 @@ class _RegisterFormState extends State<RegisterForm> {
     guardianLocationController.dispose();
     relationshipToGuardianController.dispose();
     heardAboutSOMController.dispose();
+    fellowshipNameController.dispose();
     super.dispose();
   }
 
@@ -190,6 +195,43 @@ class _RegisterFormState extends State<RegisterForm> {
                   },
                 ),
                 const SizedBox(height: 20),
+                DropdownButtonFormField(
+                  decoration: const InputDecoration(border: OutlineInputBorder(),labelText: 'Are you a leader of a fellowship or church?'),
+                  value: areYouLeader?.value,
+                  items: ["Yes","No"].map((String val){
+                  return DropdownMenuItem<String>(value: val, child: Text(val));
+                }).toList(), onChanged: (newVal){
+                  areYouLeader?.value = newVal!;
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select from this field.';
+                  }
+                  return null;
+                },),
+                const SizedBox(height: 20),
+                Obx(
+                  (){ return TextFormField(
+                    enabled: areYouLeader?.value != "Yes"?false:true,
+
+                    controller: fellowshipNameController,
+                    decoration: const InputDecoration(border: OutlineInputBorder(),
+                        labelText: 'Name of the fellowship or church'),
+                    validator: (value) {
+                      if (areYouLeader?.value == "Yes") {
+                        if (value == null || value.isEmpty) {
+                        return 'Please enter the name of the fellowship or church.';
+                        }
+                        return null;
+                      }
+                      else if ( areYouLeader?.value == "No") {
+                        return null;
+                      }
+                      return null;
+                    },
+                  );}
+                ),
+                const SizedBox(height: 20),
                 TextFormField(
                   controller: heardAboutSOMController,
                   decoration: const InputDecoration(border: OutlineInputBorder(),
@@ -210,6 +252,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         'surname': surnameController.text,
                         'firstName': firstNameController.text,
                         'gender': selectedGender,
+                        'isLeader': areYouLeader?.value,
                         'currentLocation': currentLocationController.text,
                         'foodAllergy': foodAllergyController.text,
                         'whatsappNumber': whatsappNumberController.text,
@@ -219,10 +262,11 @@ class _RegisterFormState extends State<RegisterForm> {
                         'relationshipToGuardian':
                             relationshipToGuardianController.text,
                         'heardAboutSOM': heardAboutSOMController.text,
+                        'fellowshipName': fellowshipNameController.text,
                       });
                       Get.snackbar("Registration was successful", "Congratulations and See you at SOM 2024 ");
 
-                     await Get.offAll(MainPage());
+                     await Get.offAll(const JoinWhatsappScreen());
 
                       // Add your onPressed code here!
                     }

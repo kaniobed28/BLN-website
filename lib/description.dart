@@ -19,19 +19,25 @@ class SomDescription extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
-            child: Container(
-              width: screenSize.width * 0.4,
-              height: screenSize.width * 0.4,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(width: 2.0, color: Colors.blue),
-              ),
-              child: ClipOval(
-                child: Image.asset(
-                  "assets/images/blnlogo.jpg",
-                  width: 100.0,
-                  height: 100.0,
-                  fit: BoxFit.cover,
+            child: Material(
+              borderRadius: BorderRadius.circular(20),
+              elevation: 20,
+              child: Container(
+                width: screenSize.width * 0.9,
+                height: screenSize.width * 0.4,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  shape: BoxShape.rectangle,
+                  border: Border.all(width: 2.0, color: Colors.transparent),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset(
+                    "assets/images/SOM'242.jpg",
+                    width: 100.0,
+                    height: 100.0,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),

@@ -7,14 +7,14 @@ import 'package:bln_website/vocational.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-
+// import 'package:google_fonts/google_fonts.dart';
+// import 'dart:html' as html;
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  runApp(MyApp());
+  //  html.window.location.href = 'https://bit.ly/PCCREVIVAL';
+   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -76,7 +76,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           SizedBox(width: 10),
           Text(
-            'SOM 2024',
+            'BIRTHING LOVERS NETWORK',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
